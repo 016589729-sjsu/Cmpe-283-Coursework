@@ -21,7 +21,7 @@ Your VMM should now be able to create a snapshot of a VM when it encounters the 
 myvmm -v assembly_file_vm1 -s snapshot_vm1 -v assembly_file_vm2 
 In the example above we will start vm1 from the snapshot but vm2 will start from the beginning
 
-Homework 3: Add Support for live migration in your Hypervisor
+#Homework 3: Add Support for live migration in your Hypervisor
 In this assignment you will add support for live migration of a virtual machine. You will do so by adding support for the command MIGRATE [HOSTNAME or IP ADDRESS]. At this point the full vm and its current state will be migrated to a remote one that should receive it and complete the execution from the point where the MIGRATE was initiated.
 
 
