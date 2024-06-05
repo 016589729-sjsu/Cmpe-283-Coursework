@@ -1,37 +1,90 @@
-# Cmpe-283-Coursework
-# Homework 1
-The idea of this project is for me to deliver a Hypervisor based in instruction emulation for MIPs processor.I should use C++ for this project.
-The input to your hypervisor will have two components: one will be the ASSEMBLY code of the binary to be run by a given VM and the other input file will contain configuration for the hypervisor with the line format:
+# Hypervisor Development for MIPS Processor Emulation
+
+## Project Overview
+
+This project involves the development of a hypervisor using C++ that emulates a MIPS processor at the instruction level. The hypervisor supports multiple virtual machines (VMs) running MIPS assembly code, with features for arithmetic and logical instruction execution, VM snapshotting, and live migration. This README provides an overview of the project's functionality and usage.
+
+## Features
+
+1. **Instruction Emulation:**
+   - Emulates arithmetic and logical instructions for MIPS processors.
+   - Supports multiple VMs specified via command-line arguments.
+
+2. **Configuration System:**
+   - Customizable hypervisor settings through a configuration file.
+   - Configuration parameters include execution slice length and VM binary file paths.
+
+3. **Processor State Dump:**
+   - Implements the `DUMP_PROCESSOR_STATE` para-instruction.
+   - Pretty prints the state of the processor, including all registers.
+
+4. **VM Snapshotting:**
+   - Supports creating snapshots of VM states with the `SNAPSHOT <filename>` instruction.
+   - Allows VM startup from a snapshot or the beginning of the assembly code.
+
+5. **Live Migration:**
+   - Enables live migration of running VMs to another host specified by hostname or IP address.
+   - Ensures seamless continuation of VM execution post-migration.
+
+## Configuration Parameters
+
+The hypervisor configuration file uses the following format:
+
+```
 config_parameter=value
-For this phase I will support arithmetic and logical instructions and my hypervisor will support a single VM.
-In this phase I must support the para-instruction DUMP_PROCESSOR_STATE that will pretty print the state of the processors including all registers
-The following configuration parameters are to be supported:
-vm_exec_slice_in_instructions=<number of instructions to execute before we context switch to another VM>
-vm_binary = path of file containing assembly for this vm
-Support multiple VM passed to your program as files in command line arguments:
-myvmm -v assembly_file_vm1 -v assembly_file_vm2
-Instructions for MIPS https://www.dsi.unive.it/~gasparetto/materials/MIPS_Instruction_Set.pdf
-Links to an external site.
-mips registers: http://homepage.divms.uiowa.edu/~ghosh/1-28-10.pdf
+```
 
+### Supported Configuration Parameters
 
-# Homework 2: Add support for VM snapshotting to your hypervisor
-My VMM should now be able to create a snapshot of a VM when it encounters the SNAPSHOT <filename> instruction in the VM assembly code and store it in a file.It should also support the capability of VMM to support starting a VM from a given snapshot instead of the beginning of the assemebly code:
- 
-myvmm -v assembly_file_vm1 -s snapshot_vm1 -v assembly_file_vm2 
-In the example above it should start vm1 from the snapshot but vm2 will start from the beginning
+- `vm_exec_slice_in_instructions`: Number of instructions to execute before context switching to another VM.
+- `vm_binary`: Path to the file containing assembly code for the VM.
 
-# Homework 3: Add Support for live migration in your Hypervisor
-In this assignment I added support for live migration of a virtual machine. I also added the support for the command MIGRATE [HOSTNAME or IP ADDRESS]. At this point the full vm and its current state will be migrated to a remote one that should receive it and complete the execution from the point where the MIGRATE was initiated.
+### Example Configuration File
 
+```
+vm_exec_slice_in_instructions=100
+vm_binary=path/to/vm_assembly_file
+```
 
+## Usage
 
-# Project: Hypervisor Development (C++, MIPS processor emulation)
+### Command-Line Arguments
 
-Developed a C++ hypervisor emulating a MIPS processor for instruction-level virtualization.
-Supported arithmetic and logical instructions for multiple virtual machines (VMs) using assembly code.
-Integrated a flexible configuration system for customizing hypervisor settings.
-Implemented the DUMP_PROCESSOR_STATE para-instruction to display processor state.
-Added VM snapshotting capability for efficient state preservation and restoration.
-Enabled VM startup from snapshots or from the beginning of the assembly code.
-Supported live migration of running VMs for workload balancing and fault tolerance.
+- To run the hypervisor with multiple VMs:
+  ```
+  myvmm -v assembly_file_vm1 -v assembly_file_vm2
+  ```
+
+- To start a VM from a snapshot:
+  ```
+  myvmm -v assembly_file_vm1 -s snapshot_vm1 -v assembly_file_vm2
+  ```
+
+### MIPS Instructions
+
+Refer to the MIPS instruction set documentation:
+- [MIPS Instruction Set](https://www.dsi.unive.it/~gasparetto/materials/MIPS_Instruction_Set.pdf)
+- [MIPS Registers](http://homepage.divms.uiowa.edu/~ghosh/1-28-10.pdf)
+
+## Homework Assignments
+
+### Homework 1: Initial Hypervisor Development
+
+- Implemented support for arithmetic and logical instructions.
+- Supported a single VM with the `DUMP_PROCESSOR_STATE` para-instruction.
+
+### Homework 2: VM Snapshotting
+
+- Added snapshot capability for saving and restoring VM states.
+- Supported VM startup from snapshots or the beginning of assembly code.
+
+### Homework 3: Live Migration
+
+- Added support for live migration of VMs.
+- Implemented the `MIGRATE [HOSTNAME or IP ADDRESS]` command.
+
+## Project Summary
+
+This project demonstrates the development of a robust hypervisor capable of emulating a MIPS processor. Key functionalities include flexible VM management, state preservation and restoration, and live migration for high availability and fault tolerance. The hypervisor leverages C++ for performance and efficiency, providing a powerful tool for MIPS processor virtualization.
+
+For detailed implementation and code examples, please refer to the project repository.
